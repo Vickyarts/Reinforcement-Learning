@@ -126,7 +126,7 @@ class DDPGAgent():
             new_states = torch.cat((states, actions), 1)
             q_values = self.Critic(new_states)
             
-            next_actions = self.TargetActor(states)
+            next_actions = self.TargetActor(next_states)
             next_actions = torch.clamp(next_actions, min=-1, max=1)
             t_new_states = torch.cat((states, next_actions), 1)
             q_next_values = self.TargetCritic(t_new_states).detach()
